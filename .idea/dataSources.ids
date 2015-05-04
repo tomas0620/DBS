@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - DBS_projekt@localhost" uuid="da3e7324-2318-4b03-aa71-4d5730c63402">
+    <database-info product="MySQL" version="5.6.17" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="dbs_projekt"/>
+    <table name="accessories" schema="" catalog="dbs_projekt" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_t" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_c" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nazov" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="accessories_ibfk_1" columns="id_t" ref-table="accessories_type" ref-schema="" ref-catalog="dbs_projekt" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="accessories_ibfk_2" columns="id_c" ref-table="cena" ref-schema="" ref-catalog="dbs_projekt" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="accessories_type" schema="" catalog="dbs_projekt" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="typ" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="accessories_ibfk_1" table="accessories" schema="" catalog="dbs_projekt" columns="id_t"/>
+    </table>
+    <table name="bike_type" schema="" catalog="dbs_projekt" type="TABLE">
+      <column name="id_t" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="typ" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_t"/>
+      <exported-key name="bycikel_ibfk_2" table="bycikel" schema="" catalog="dbs_projekt" columns="id_t"/>
+      <index name="unique_typ" unique="true" columns="typ"/>
+    </table>
+    <table name="bycikel" schema="" catalog="dbs_projekt" type="TABLE">
+      <column name="id_b" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_c" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_t" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nazov" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="velkost" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_b"/>
+      <foreign-key name="bycikel_ibfk_1" columns="id_c" ref-table="cena" ref-schema="" ref-catalog="dbs_projekt" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="bycikel_ibfk_2" columns="id_t" ref-table="bike_type" ref-schema="" ref-catalog="dbs_projekt" ref-columns="id_t" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="cena" schema="" catalog="dbs_projekt" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cena" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="accessories_ibfk_2" table="accessories" schema="" catalog="dbs_projekt" columns="id_c"/>
+      <exported-key name="bycikel_ibfk_1" table="bycikel" schema="" catalog="dbs_projekt" columns="id_c"/>
+      <index name="unique_cena" unique="true" columns="cena"/>
+    </table>
+    <table name="objednavka" schema="" catalog="dbs_projekt" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="celkova_cena" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="items" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="polozky_ibfk_1" table="polozky" schema="" catalog="dbs_projekt" columns="id_objednavky"/>
+    </table>
+    <table name="polozky" schema="" catalog="dbs_projekt" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_product" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="is_bike" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="is_accessories" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="id_objednavky" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="polozky_ibfk_1" columns="id_objednavky" ref-table="objednavka" ref-schema="" ref-catalog="dbs_projekt" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+  </data-source>
+</component>
